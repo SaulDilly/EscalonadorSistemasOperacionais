@@ -21,6 +21,10 @@ public class Processo {
         this.ultimaFila = null;
         this.surtoCPUrestante = surtoCPU;
     }
+    
+    public void inicializarSurtoRestante() {
+        this.surtoCPUrestante = this.surtoCPU;
+    }
 
     public Fila getUltimaFila() {
         return ultimaFila;

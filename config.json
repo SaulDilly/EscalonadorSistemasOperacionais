@@ -1,0 +1,27 @@
+{
+    "configuracao": {
+      "quantumFila1": 10,
+      "quantumFila2": 20
+    },
+    "processos": [
+      {
+        "nome": "P1",
+        "surtoCPU": 15,
+        "tempoES": 3,
+        "tempoTotal": 40,
+        "prioridade": 1
+      },
+      {
+        "nome": "P2",
+        "tempoTotal": 70,
+        "prioridade": 2
+      },
+      {
+        "nome": "P3",
+        "surtoCPU": 8,
+        "tempoES": 2,
+        "tempoTotal": 35,
+        "prioridade": 3
+      }
+    ]
+  }

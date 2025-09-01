@@ -11,13 +11,18 @@ public class Escalonador {
     private List<Processo> bloqueados; 
     private List<Processo> todos;
 
-    public Escalonador (List<Processo> lista) {
-        this.fila1 = new FilaRoundRobin(10, 1);
-        this.fila2 = new FilaRoundRobin(20, 2);
+    public Escalonador (List<Processo> lista, int quantumFila1, int quantumFila2) {
+        this.fila1 = new FilaRoundRobin(quantumFila1, 1);
+        this.fila2 = new FilaRoundRobin(quantumFila2, 2);
         this.fila3 = new FilaFCFS();
         this.bloqueados = new ArrayList<>();
         this.todos = lista;
-        // Insere processos na fila 1 com base na prioridade
+        
+        // Inicializa o surto restante para os processos que vieram do JSON
+        for (Processo p : this.todos) {
+            p.inicializarSurtoRestante();
+        }
+
         escalonaProcessos();
     }
 

@@ -1,23 +1,30 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileReader;
+import java.io.Reader;
+import com.google.gson.Gson;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        Escalonador e = new Escalonador(getListaProcessos());
-        e.simular();
+        SimulacaoConfig config = carregarConfiguracao("EscalonadorSistemasOperacionais/config.json");
+        
+        if (config != null) {
+            Escalonador e = new Escalonador(
+                config.getProcessos(), 
+                config.getConfiguracao().getQuantumFila1(), 
+                config.getConfiguracao().getQuantumFila2()
+            );
+            e.simular();
+        } else {
+            System.out.println("Erro ao carregar o arquivo de configuracao.");
+        }
     }
 
-    public static List<Processo> getListaProcessos() {
-        Processo p1 = new Processo("P1", 15, 3, 40, 1);
-        Processo p2 = new Processo("P2", 0, 0, 70, 2);
-        Processo p3 = new Processo("P3", 8, 2, 35, 3);
-
-        List<Processo> lista = new ArrayList<>();
-
-        lista.add(p1);
-        lista.add(p2);
-        lista.add(p3);
-
-        return lista;
+    private static SimulacaoConfig carregarConfiguracao(String caminhoArquivo) {
+        Gson gson = new Gson();
+        try (Reader reader = new FileReader(caminhoArquivo)) {
+            return gson.fromJson(reader, SimulacaoConfig.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
